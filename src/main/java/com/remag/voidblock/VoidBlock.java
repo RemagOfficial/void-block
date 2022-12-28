@@ -7,7 +7,6 @@ import com.remag.voidblock.util.Config;
 import com.remag.voidblock.util.Registration;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.MilkBucketItem;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.MinecraftForge;
@@ -48,11 +47,12 @@ public class VoidBlock
         ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, Config.CLIENT_CONFIG);
         ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, Config.SERVER_CONFIG);
 
+
+        MinecraftForge.EVENT_BUS.register(new ModEvents());
+
         Registration.register();
         ModBlocks.register();
         ModItems.register();
-
-        MinecraftForge.EVENT_BUS.register(new ModEvents());
 
         // Register the setup method for modloading
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);

@@ -12,24 +12,27 @@ public class Config
     public static ForgeConfigSpec CLIENT_CONFIG;
 
     public static ForgeConfigSpec.BooleanValue VOID_BLOCK_ENABLED;
+    public static ForgeConfigSpec.BooleanValue REGULAR_FALLING;
 
     static {
 
         ForgeConfigSpec.Builder SERVER_BUILDER = new ForgeConfigSpec.Builder();
         ForgeConfigSpec.Builder CLIENT_BUILDER = new ForgeConfigSpec.Builder();
 
-        voidBlockEnable(SERVER_BUILDER, CLIENT_BUILDER);
+        init(SERVER_BUILDER, CLIENT_BUILDER);
 
         SERVER_CONFIG = SERVER_BUILDER.build();
         CLIENT_CONFIG = CLIENT_BUILDER.build();
     }
 
 
-    private static void voidBlockEnable(ForgeConfigSpec.Builder SERVER_BUILDER,
+    private static void init(ForgeConfigSpec.Builder SERVER_BUILDER,
                                         ForgeConfigSpec.Builder CLIENT_BUILDER)
     {
         VOID_BLOCK_ENABLED = CLIENT_BUILDER.comment("Enable VoidBlock?")
                 .define("void_block_enable", false);
+        REGULAR_FALLING = CLIENT_BUILDER.comment("Can the player fall normally? (will need to be reset to false when making a new world)")
+                .define("regular_falling", false);
     }
 
     public static void loadConfigFile(ForgeConfigSpec config, String path)
