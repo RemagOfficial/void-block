@@ -38,7 +38,10 @@ public class ModEvents {
             if(event.getPlayer().getMainHandItem().sameItem(new ItemStack(ModBlocks.VOID_BLOCK.get().asItem()))){
                 BlockPos blockPos = event.getPlayer().getOnPos().below();
                 event.getWorld().setBlock(blockPos, ModBlocks.VOID_BLOCK.get().defaultBlockState(), 3);
-                Config.REGULAR_FALLING.set(Boolean.TRUE);
+                event.getPlayer().getMainHandItem().setCount(event.getPlayer().getMainHandItem().getCount() - 1);
+                if(!Config.REGULAR_FALLING.get()) {
+                    Config.REGULAR_FALLING.set(Boolean.TRUE);
+                }
             }
         }
     }
