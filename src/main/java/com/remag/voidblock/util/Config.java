@@ -29,7 +29,7 @@ public class Config
     private static void init(ForgeConfigSpec.Builder SERVER_BUILDER,
                                         ForgeConfigSpec.Builder CLIENT_BUILDER)
     {
-        VOID_BLOCK_ENABLED = CLIENT_BUILDER.comment("Enable VoidBlock?")
+        VOID_BLOCK_ENABLED = SERVER_BUILDER.comment("Enable VoidBlock?")
                 .define("void_block_enable", false);
         REGULAR_FALLING = CLIENT_BUILDER.comment("Can the player fall normally? (will need to be reset to false when making a new world)")
                 .define("regular_falling", false);

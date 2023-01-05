@@ -28,7 +28,6 @@ public class ModEvents {
                 executor.schedule(() -> {
                     event.getPlayer().addItem(new ItemStack(ModItems.DUST.get()));
                 }, 500, TimeUnit.MILLISECONDS);
-                event.getPlayer().getInventory().setChanged();
             }
         }
     }
@@ -40,7 +39,6 @@ public class ModEvents {
                 BlockPos blockPos = event.getPlayer().getOnPos().below();
                 event.getWorld().setBlock(blockPos, ModBlocks.VOID_BLOCK.get().defaultBlockState(), 3);
                 event.getPlayer().getMainHandItem().shrink(1);
-                event.getPlayer().getInventory().setChanged();
                 if(!Config.REGULAR_FALLING.get()) {
                     Config.REGULAR_FALLING.set(Boolean.TRUE);
                 }
