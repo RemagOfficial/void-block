@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "##",
+    "##"
+  ],
+  "key": {
+    "#": {
+      "item": "voidblock:dust"
+    }
+  },
+  "result": {
+    "item": "voidblock:plant_matter",
+    "count": 1
+  }
+}

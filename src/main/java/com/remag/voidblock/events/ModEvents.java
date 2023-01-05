@@ -26,8 +26,9 @@ public class ModEvents {
         if(Config.VOID_BLOCK_ENABLED.get()){
             if(event.getPlayer().getMainHandItem() == ItemStack.EMPTY){
                 executor.schedule(() -> {
-                    event.getPlayer().getInventory().add(new ItemStack(ModItems.DUST.get()));
+                    event.getPlayer().addItem(new ItemStack(ModItems.DUST.get()));
                 }, 500, TimeUnit.MILLISECONDS);
+                event.getPlayer().getInventory().setChanged();
             }
         }
     }
@@ -38,7 +39,8 @@ public class ModEvents {
             if(event.getPlayer().getMainHandItem().sameItem(new ItemStack(ModBlocks.VOID_BLOCK.get().asItem()))){
                 BlockPos blockPos = event.getPlayer().getOnPos().below();
                 event.getWorld().setBlock(blockPos, ModBlocks.VOID_BLOCK.get().defaultBlockState(), 3);
-                event.getPlayer().getMainHandItem().setCount(event.getPlayer().getMainHandItem().getCount() - 1);
+                event.getPlayer().getMainHandItem().shrink(1);
+                event.getPlayer().getInventory().setChanged();
                 if(!Config.REGULAR_FALLING.get()) {
                     Config.REGULAR_FALLING.set(Boolean.TRUE);
                 }
