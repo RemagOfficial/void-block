@@ -37,8 +37,8 @@ public class ModEvents {
                 BlockPos blockPos = event.getPlayer().getOnPos().below();
                 event.getWorld().setBlock(blockPos, ModBlocks.VOID_BLOCK.get().defaultBlockState(), 3);
                 event.getPlayer().getMainHandItem().shrink(1);
-                if(!ClientConfig.REGULAR_FALLING.get()) {
-                    ClientConfig.REGULAR_FALLING.set(Boolean.TRUE);
+                if(!CommonConfig.REGULAR_FALLING.get()) {
+                    CommonConfig.REGULAR_FALLING.set(Boolean.TRUE);
                 }
             }
         }
@@ -47,7 +47,7 @@ public class ModEvents {
     @SubscribeEvent
     public void playerNoFall(LivingEvent.LivingUpdateEvent event){
         if(CommonConfig.VOID_BLOCK_ENABLE.get()){
-            if(!ClientConfig.REGULAR_FALLING.get()){
+            if(!CommonConfig.REGULAR_FALLING.get()){
                 if(event.getEntity() instanceof Player){
                     LivingEntity entity = (LivingEntity) event.getEntity();
                     if(entity.getY() < previousPosY){

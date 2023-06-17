@@ -52,7 +52,6 @@ public class VoidBlock
         ModBlocks.register();
         ModItems.register();
 
-        ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, ClientConfig.SPEC);
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, CommonConfig.SPEC);
 
         // Register the setup method for modloading
