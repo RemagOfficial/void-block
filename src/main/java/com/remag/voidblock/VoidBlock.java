@@ -3,7 +3,6 @@ package com.remag.voidblock;
 import com.remag.voidblock.block.ModBlocks;
 import com.remag.voidblock.events.ModEvents;
 import com.remag.voidblock.item.ModItems;
-import com.remag.voidblock.util.ClientConfig;
 import com.remag.voidblock.util.CommonConfig;
 import com.remag.voidblock.util.Registration;
 import net.minecraft.world.item.CreativeModeTab;
@@ -44,8 +43,6 @@ public class VoidBlock
 
     public VoidBlock()
     {
-
-
         MinecraftForge.EVENT_BUS.register(new ModEvents());
 
         Registration.register();

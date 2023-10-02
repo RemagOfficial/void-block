@@ -1,19 +1,16 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "#V",
-    "V#"
+    "##",
+    "##"
   ],
   "key": {
     "#": {
       "item": "voidblock:plant_matter"
-    },
-    "V": {
-      "item": "voidblock:dust"
     }
   },
   "result": {
-    "item": "voidblock:void_block",
+    "item": "minecraft:oak_leaves",
     "count": 1
   }
 }
