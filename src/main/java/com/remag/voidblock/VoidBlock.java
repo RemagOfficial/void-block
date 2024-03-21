@@ -32,6 +32,7 @@ public class VoidBlock
 {
     public static final String MOD_ID = "voidblock";
 
+    // The CreativeTab for the mod
     public static final CreativeModeTab VOID_TAB = new CreativeModeTab("void_tab") {
         @Override
         public ItemStack makeIcon() {
@@ -41,14 +42,20 @@ public class VoidBlock
 
     private static final Logger LOGGER = LogManager.getLogger();
 
+    /**
+     * Constructor for the mod.
+     *
+     * Registers mod events, registers the mod blocks and items, and sets up the config.
+     */
     public VoidBlock()
     {
+        // Register the mod events
         MinecraftForge.EVENT_BUS.register(new ModEvents());
 
+        // Register the mod blocks, items, and config
         Registration.register();
         ModBlocks.register();
         ModItems.register();
-
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, CommonConfig.SPEC);
 
         // Register the setup method for modloading
@@ -58,45 +65,67 @@ public class VoidBlock
         // Register the processIMC method for modloading
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::processIMC);
 
-
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);
     }
 
+    /**
+     * Setup method for mod loading. Called in the preinit phase.
+     *
+     * @param event The FMLCommonSetupEvent
+     */
     private void setup(final FMLCommonSetupEvent event)
     {
-        // some preinit code
         LOGGER.info("HELLO FROM PREINIT");
         LOGGER.info("DIRT BLOCK >> {}", Blocks.DIRT.getRegistryName());
     }
 
+    /**
+     * Enqueue InterModCommunication (IMC) method for mod loading.
+     * Called in the constructing phase.
+     *
+     * @param event The InterModEnqueueEvent
+     */
     private void enqueueIMC(final InterModEnqueueEvent event)
     {
-        // some example code to dispatch IMC to another mod
         InterModComms.sendTo("examplemod", "helloworld", () -> { LOGGER.info("Hello world from the MDK"); return "Hello world";});
     }
 
+    /**
+     * Process InterModCommunication (IMC) method for mod loading.
+     * Called in the constructing phase.
+     *
+     * @param event The InterModProcessEvent
+     */
     private void processIMC(final InterModProcessEvent event)
     {
-        // some example code to receive and process InterModComms from other mods
         LOGGER.info("Got IMC {}", event.getIMCStream().
                 map(m->m.messageSupplier().get()).
                 collect(Collectors.toList()));
     }
-    // You can use SubscribeEvent and let the Event Bus discover methods to call
+
+    /**
+     * Event handler for when the server starts.
+     *
+     * @param event The ServerStartingEvent
+     */
     @SubscribeEvent
     public void onServerStarting(ServerStartingEvent event) {
-        // do something when the server starts
         LOGGER.info("HELLO from server starting");
     }
 
-    // You can use EventBusSubscriber to automatically subscribe events on the contained class (this is subscribing to the MOD
-    // Event bus for receiving Registry Events)
+    /**
+     * Event subscriber for the Registry Events.
+     */
     @Mod.EventBusSubscriber(bus=Mod.EventBusSubscriber.Bus.MOD)
     public static class RegistryEvents {
+        /**
+         * Event handler for the Registry Event for Blocks.
+         *
+         * @param blockRegistryEvent The RegistryEvent for Blocks.
+         */
         @SubscribeEvent
         public static void onBlocksRegistry(final RegistryEvent.Register<Block> blockRegistryEvent) {
-            // register a new block here
             LOGGER.info("HELLO from Register Block");
         }
     }
