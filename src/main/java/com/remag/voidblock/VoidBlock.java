@@ -32,14 +32,6 @@ public class VoidBlock
 {
     public static final String MOD_ID = "voidblock";
 
-    // The CreativeTab for the mod
-    public static final CreativeModeTab VOID_TAB = new CreativeModeTab("void_tab") {
-        @Override
-        public ItemStack makeIcon() {
-            return new ItemStack(ModBlocks.VOID_BLOCK.get());
-        }
-    };
-
     private static final Logger LOGGER = LogManager.getLogger();
 
     /**

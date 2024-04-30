@@ -20,14 +20,14 @@ public class ModItems
      */
     public static final RegistryObject<Item> DUST =
             Registration.ITEMS.register("dust",
-                    () -> new Item(new Item.Properties().tab(VoidBlock.VOID_TAB)));
+                    () -> new Item(new Item.Properties()));
 
     /*
      * Plant matter item. This item appears in the creative menu under 'VoidBlock'.
      */
     public static final RegistryObject<Item> PLANT_MATTER =
             Registration.ITEMS.register("plant_matter",
-                    () -> new Item(new Item.Properties().tab(VoidBlock.VOID_TAB)));
+                    () -> new Item(new Item.Properties()));
 
     /*
      * This function is intentionally empty, it is here to override the
