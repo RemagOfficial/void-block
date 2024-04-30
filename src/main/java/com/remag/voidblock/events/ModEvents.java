@@ -28,8 +28,10 @@ public class ModEvents {
      */
     @SubscribeEvent
     public void punchAir(PlayerInteractEvent.RightClickItem event) {
-        // Check if the event is on the server and if the player is not the client
-        if (!event.getSide().isClient() && event.getEntity() instanceof Player player) {
+        // Check if the player is on the server and is a player
+        if (!event.getSide().isClient() && event.getEntity() instanceof Player) {
+            // Get the player
+            Player player = (Player) event.getEntity();
             // Check if the common config 'VOID_BLOCK_ENABLE' is true
             if (CommonConfig.VOID_BLOCK_ENABLE.get()) {
                 // Schedule the item addition on the server's main thread using a task
@@ -100,7 +102,9 @@ public class ModEvents {
     @SubscribeEvent
     public void placeBlockUnderPlayer(PlayerInteractEvent.RightClickItem event) {
         // Check if the side is the server side and if the player clicked with the right hand
-        if (!event.getSide().isClient() && event.getEntity() instanceof Player player) {
+        if (!event.getSide().isClient() && event.getEntity() instanceof Player) {
+            // Get the player
+            Player player = (Player) event.getEntity();
             // Check if the common config 'VOID_BLOCK_ENABLE' is true
             if (CommonConfig.VOID_BLOCK_ENABLE.get()) {
                 // Create a new ItemStack for the void block item
@@ -110,7 +114,7 @@ public class ModEvents {
                     // Get the position below the player
                     BlockPos posBelow = player.getOnPos().below();
                     // Set the block at the position below the player to the void block
-                    event.getWorld().setBlock(posBelow, ModBlocks.VOID_BLOCK.get().defaultBlockState(), 3);
+                    event.getLevel().setBlock(posBelow, ModBlocks.VOID_BLOCK.get().defaultBlockState(), 3);
                     // Consume the void block item
                     player.getMainHandItem().shrink(1);
                     // If 'REGULAR_FALLING' is false, set it to true
@@ -130,7 +134,7 @@ public class ModEvents {
      * @param event The living update event
      */
     @SubscribeEvent
-    public void playerNoFall(LivingEvent.LivingUpdateEvent event){
+    public void playerNoFall(LivingEvent.LivingTickEvent event){
         // Check if the common config and regular falling are enabled
         if(CommonConfig.VOID_BLOCK_ENABLE.get() && !CommonConfig.REGULAR_FALLING.get()){
             // Check if the entity is a player
