@@ -3,14 +3,10 @@ package com.remag.voidblock;
 import com.remag.voidblock.block.ModBlocks;
 import com.remag.voidblock.events.ModEvents;
 import com.remag.voidblock.item.ModItems;
+import com.remag.voidblock.tab.ModCreativeModeTab;
 import com.remag.voidblock.util.CommonConfig;
-import com.remag.voidblock.util.Registration;
-import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.*;
+import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.InterModComms;
 import net.minecraftforge.fml.ModLoadingContext;
@@ -44,10 +40,12 @@ public class VoidBlock
         // Register the mod events
         MinecraftForge.EVENT_BUS.register(new ModEvents());
 
+        IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
+
         // Register the mod blocks, items, and config
-        Registration.register();
-        ModBlocks.register();
-        ModItems.register();
+        ModBlocks.register(modEventBus);
+        ModItems.register(modEventBus);
+        ModCreativeModeTab.TABS.register(modEventBus);
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, CommonConfig.SPEC);
 
         // Register the setup method for modloading

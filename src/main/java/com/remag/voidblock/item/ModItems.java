@@ -1,9 +1,15 @@
 package com.remag.voidblock.item;
 
 import com.remag.voidblock.VoidBlock;
-import com.remag.voidblock.util.Registration;
+import com.remag.voidblock.block.ModBlocks;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
+import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.RegistryObject;
+
+import static com.remag.voidblock.tab.ModCreativeModeTab.addToTab;
 
 /*
  * This class contains static references to all items in the VoidBlock
@@ -13,27 +19,25 @@ import net.minecraftforge.registries.RegistryObject;
  */
 public class ModItems
 {
-    /* ITEMS */
+    public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(Registries.ITEM, VoidBlock.MOD_ID);
 
-    /*
-     * Dust item. This item appears in the creative menu under 'VoidBlock'.
-     */
-    public static final RegistryObject<Item> DUST =
-            Registration.ITEMS.register("dust",
-                    () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> DUST = addToTab(ITEMS.register("dust",
+                    () -> new Item(new Item.Properties())));
 
     /*
      * Plant matter item. This item appears in the creative menu under 'VoidBlock'.
      */
-    public static final RegistryObject<Item> PLANT_MATTER =
-            Registration.ITEMS.register("plant_matter",
-                    () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> PLANT_MATTER = addToTab(ITEMS.register("plant_matter",
+                    () -> new Item(new Item.Properties())));
 
-    /*
-     * This function is intentionally empty, it is here to override the
-     * register function in Registration, which could cause issues with the
-     * 'ITEMS' registry. It is not needed in this file, and can be safely
-     * ignored.
-     */
-    public static void register() { }
+
+    public static final RegistryObject<Item> VOID_BLOCK = addToTab(ITEMS.register("void_block",
+            () -> new BlockItem(ModBlocks.VOID_BLOCK.get(),
+                    new Item.Properties()
+            )
+    ));
+
+    public static void register(IEventBus eventBus) {
+        ITEMS.register(eventBus);
+    }
 }
