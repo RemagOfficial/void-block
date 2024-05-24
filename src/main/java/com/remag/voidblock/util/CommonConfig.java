@@ -47,7 +47,7 @@ public class CommonConfig
 
         // Define the "Regular Falling" config value.
         REGULAR_FALLING = BUILDER.comment("Should the player fall normally")
-                .define("Regular Falling", true);
+                .define("Regular Falling", false);
 
         // Define the "Item Delay" config value.
         ITEM_TICK_DELAY = BUILDER.comment("Delay between items gained from right clicking the air in milliseconds")
