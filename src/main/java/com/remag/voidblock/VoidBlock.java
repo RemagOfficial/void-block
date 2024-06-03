@@ -5,6 +5,7 @@ import com.remag.voidblock.events.ModEvents;
 import com.remag.voidblock.item.ModItems;
 import com.remag.voidblock.tab.ModCreativeModeTab;
 import com.remag.voidblock.util.CommonConfig;
+import com.remag.voidblock.worldgen.biome.ModTerrablender;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -45,6 +46,7 @@ public class VoidBlock
         // Register the mod blocks, items, and config
         ModBlocks.register(modEventBus);
         ModItems.register(modEventBus);
+        ModTerrablender.registerBiomes();
         ModCreativeModeTab.TABS.register(modEventBus);
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, CommonConfig.SPEC);
 
