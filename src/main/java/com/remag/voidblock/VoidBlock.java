@@ -6,6 +6,7 @@ import com.remag.voidblock.item.ModItems;
 import com.remag.voidblock.tab.ModCreativeModeTab;
 import com.remag.voidblock.util.CommonConfig;
 import com.remag.voidblock.worldgen.biome.ModTerrablender;
+import com.remag.voidblock.worldgen.surface.ModSurfaceRules;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -20,6 +21,7 @@ import net.minecraftforge.event.server.ServerStartingEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import terrablender.api.SurfaceRuleManager;
 
 import java.util.stream.Collectors;
 
@@ -66,8 +68,11 @@ public class VoidBlock
      *
      * @param event The FMLCommonSetupEvent
      */
-    private void setup(final FMLCommonSetupEvent event)
-    {}
+    private void setup(final FMLCommonSetupEvent event) {
+        event.enqueueWork(() -> {
+            SurfaceRuleManager.addSurfaceRules(SurfaceRuleManager.RuleCategory.OVERWORLD, MOD_ID, ModSurfaceRules.makeRules());
+        });
+    }
 
     /**
      * Enqueue InterModCommunication (IMC) method for mod loading.
