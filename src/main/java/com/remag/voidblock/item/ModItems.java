@@ -3,6 +3,7 @@ package com.remag.voidblock.item;
 import com.remag.voidblock.VoidBlock;
 import com.remag.voidblock.block.ModBlocks;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -21,15 +22,18 @@ public class ModItems
 {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(Registries.ITEM, VoidBlock.MOD_ID);
 
+    // items
+
     public static final RegistryObject<Item> DUST = addToTab(ITEMS.register("dust",
                     () -> new Item(new Item.Properties())));
 
-    /*
-     * Plant matter item. This item appears in the creative menu under 'VoidBlock'.
-     */
     public static final RegistryObject<Item> PLANT_MATTER = addToTab(ITEMS.register("plant_matter",
                     () -> new Item(new Item.Properties())));
 
+    public static final RegistryObject<Item> GRAVITY_BOOTS = addToTab(ITEMS.register("gravity_boots",
+                    () -> new ArmorItem(ModArmorMaterials.VOID, ArmorItem.Type.BOOTS, new Item.Properties())));
+
+    // block items
 
     public static final RegistryObject<Item> VOID_BLOCK = addToTab(ITEMS.register("void_block",
             () -> new BlockItem(ModBlocks.VOID_BLOCK.get(),

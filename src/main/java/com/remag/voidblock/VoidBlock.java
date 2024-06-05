@@ -31,7 +31,7 @@ public class VoidBlock
 {
     public static final String MOD_ID = "voidblock";
 
-    private static final Logger LOGGER = LogManager.getLogger();
+    public static final Logger LOGGER = LogManager.getLogger();
 
     /**
      * Constructor for the mod.

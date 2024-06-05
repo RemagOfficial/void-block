@@ -1,9 +1,11 @@
 package com.remag.voidblock.events;
 
+import com.remag.voidblock.VoidBlock;
 import com.remag.voidblock.block.ModBlocks;
 import com.remag.voidblock.item.ModItems;
 import com.remag.voidblock.util.CommonConfig;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.NonNullList;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -117,10 +119,6 @@ public class ModEvents {
                     event.getLevel().setBlock(posBelow, ModBlocks.VOID_BLOCK.get().defaultBlockState(), 3);
                     // Consume the void block item
                     player.getMainHandItem().shrink(1);
-                    // If 'REGULAR_FALLING' is false, set it to true
-                    if (!CommonConfig.REGULAR_FALLING.get()) {
-                        CommonConfig.REGULAR_FALLING.set(true);
-                    }
                 }
             }
         }
@@ -135,18 +133,15 @@ public class ModEvents {
      */
     @SubscribeEvent
     public void playerNoFall(LivingEvent.LivingTickEvent event){
-        // Check if the common config and regular falling are enabled
-        if(CommonConfig.VOID_BLOCK_ENABLE.get() && !CommonConfig.REGULAR_FALLING.get()){
-            // Check if the entity is a player
-            if(event.getEntity() instanceof Player){
-                LivingEntity entity = (LivingEntity) event.getEntity();
-                // Check if the entity has fallen
-                if(entity.getY() < previousPosY){
-                    // Reset the entity's position to the previous y-position
-                    entity.setPos(entity.getX(), previousPosY, entity.getZ());
+        if(event.getEntity() instanceof Player player) {
+            NonNullList<ItemStack> armorInventory = player.getInventory().armor;
+            for (ItemStack armorPiece : armorInventory) {
+                if(CommonConfig.VOID_BLOCK_ENABLE.get() && armorPiece.getItem() == ModItems.GRAVITY_BOOTS.get()) {
+                    if(player.getY() < previousPosY){
+                        player.setPos(player.getX(), previousPosY, player.getZ());
+                    }
+                    else previousPosY = player.getY();
                 }
-                // Update the previous y-position
-                previousPosY = entity.getY();
             }
         }
     }
