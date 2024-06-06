@@ -48,7 +48,6 @@ public class VoidBlock
         // Register the mod blocks, items, and config
         ModBlocks.register(modEventBus);
         ModItems.register(modEventBus);
-        ModTerrablender.registerBiomes();
         ModCreativeModeTab.TABS.register(modEventBus);
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, CommonConfig.SPEC);
 
@@ -71,6 +70,7 @@ public class VoidBlock
     private void setup(final FMLCommonSetupEvent event) {
         event.enqueueWork(() -> {
             SurfaceRuleManager.addSurfaceRules(SurfaceRuleManager.RuleCategory.OVERWORLD, MOD_ID, ModSurfaceRules.makeRules());
+            ModTerrablender.registerBiomes();
         });
     }
 
