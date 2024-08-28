@@ -1,13 +1,11 @@
 package com.remag.voidblock.events;
 
-import com.remag.voidblock.VoidBlock;
 import com.remag.voidblock.block.ModBlocks;
 import com.remag.voidblock.item.ModItems;
 import com.remag.voidblock.util.CommonConfig;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.event.entity.living.LivingEvent;
@@ -58,8 +56,9 @@ public class ModEvents {
     }
 
     /**
-     * Custom method to add an item to the player's inventory after a delay.
-     * 
+     * Custom method to add an item to the player's inventory after a delay. If the inventory is full,
+     * the item is dropped in the world.
+     *
      * @param player The player to add the item to.
      * @param itemStack The item stack to add.
      * @param delayTicks The delay in ticks before adding the item.
@@ -73,7 +72,8 @@ public class ModEvents {
                 // Item added successfully
                 return true;
             } else {
-                // Inventory full or another issue
+                // Inventory full, drop the item in the world
+                player.drop(itemStack, false);
                 return false;
             }
         } else {
@@ -83,7 +83,8 @@ public class ModEvents {
                 if (player.addItem(itemStack.copy())) {
                     // Item added successfully
                 } else {
-                    // Inventory full or another issue
+                    // Inventory full, drop the item in the world
+                    player.drop(itemStack.copy(), false);
                 }
             }, delayTicks, TimeUnit.MILLISECONDS);
             // Return true to indicate that the item addition is scheduled
