@@ -1,12 +1,19 @@
 package com.remag.voidblock;
 
 import com.remag.voidblock.block.ModBlocks;
+import com.remag.voidblock.block.entities.ModBlockEntities;
 import com.remag.voidblock.events.ModEvents;
 import com.remag.voidblock.item.ModItems;
+import com.remag.voidblock.render.VoidBlockRenderer;
 import com.remag.voidblock.tab.ModCreativeModeTab;
 import com.remag.voidblock.util.CommonConfig;
 import com.remag.voidblock.worldgen.biome.ModTerrablender;
 import com.remag.voidblock.worldgen.surface.ModSurfaceRules;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
+import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
+import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
+import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -14,6 +21,7 @@ import net.minecraftforge.fml.InterModComms;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
 import net.minecraftforge.fml.event.lifecycle.InterModProcessEvent;
@@ -48,6 +56,7 @@ public class VoidBlock
         // Register the mod blocks, items, and config
         ModBlocks.register(modEventBus);
         ModItems.register(modEventBus);
+        ModBlockEntities.BLOCK_ENTITIES.register(modEventBus);
         ModCreativeModeTab.TABS.register(modEventBus);
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, CommonConfig.SPEC);
 
@@ -96,16 +105,6 @@ public class VoidBlock
         LOGGER.info("Got IMC {}", event.getIMCStream().
                 map(m->m.messageSupplier().get()).
                 collect(Collectors.toList()));
-    }
-
-    /**
-     * Event handler for when the server starts.
-     *
-     * @param event The ServerStartingEvent
-     */
-    @SubscribeEvent
-    public void onServerStarting(ServerStartingEvent event) {
-        LOGGER.info("HELLO from server starting");
     }
 
     /**
